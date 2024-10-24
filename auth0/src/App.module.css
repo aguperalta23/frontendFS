@@ -1,0 +1,83 @@
+/* Estilos para el botón de Login */
+.BotonLogin {
+    padding: 10px 20px; /* Ajuste de padding para simetría */
+    width: 200px;
+    height: 45px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgb(38, 243, 89); /* Verde brillante */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer; /* Agrega un puntero para indicar que es un botón */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+}
+
+.BotonLogin:hover {
+    background-color: rgb(28, 200, 70); /* Cambio de color al hacer hover */
+    transform: translateY(-2px); /* Efecto de elevación al hacer hover */
+}
+
+.BotonLogin:active {
+    background-color: rgb(28, 180, 60); /* Color más oscuro al hacer clic */
+    transform: translateY(0); /* Restablece la elevación cuando se hace clic */
+}
+
+/* Estilos para el botón de Logout */
+.BotonLogout {
+    padding: 10px 20px;
+    width: 200px;
+    height: 45px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgb(255, 0, 0); /* Rojo brillante */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.BotonLogout:hover {
+    background-color: rgb(200, 0, 0); /* Cambio de color al hacer hover */
+    transform: translateY(-2px);
+}
+
+.BotonLogout:active {
+    background-color: rgb(180, 0, 0);
+    transform: translateY(0);
+}
+
+/* Estilos para el contenedor principal */
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    gap: 20px; /* Espacio entre los elementos */
+}
+
+/* Estilos adicionales para las imágenes de perfil */
+img {
+    border-radius: 50%; /* Hace la imagen circular */
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la imagen */
+    margin-bottom: 15px;
+}
+
+/* Estilos para el texto de perfil */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+    margin: 5px 0 0;
+}
