@@ -21,7 +21,7 @@ const TableProducts = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:4001/productos");
+      const response = await axios.get("https://backend-fs-phi.vercel.app/productos");
       setData(response.data.data);
     } catch (error) {
       notification.error({ message: "Error fetching products", description: error.message });
@@ -33,7 +33,7 @@ const TableProducts = () => {
   // Fetch users
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:4001/api/user", {
+      const response = await axios.get("https://backend-fs-phi.vercel.app/api/user", {
         headers: {
           params: JSON.stringify({ page: 1, limit: 10 }) // Ejemplo de parámetros
         }
@@ -49,7 +49,7 @@ const TableProducts = () => {
   const createProduct = async (values) => {
     setFormLoading(true);
     try {
-      await axios.post("http://localhost:4001/productos", values);
+      await axios.post("https://backend-fs-phi.vercel.app/productos", values);
       notification.success({ message: "Product created successfully" });
       fetchProducts();
       setIsModalOpen(false);
@@ -63,7 +63,7 @@ const TableProducts = () => {
   const updateProduct = async (values) => {
     setFormLoading(true);
     try {
-      await axios.patch(`http://localhost:4001/productos/${editingProduct._id}`, values);
+      await axios.patch(`https://backend-fs-phi.vercel.app/productos/${editingProduct._id}`, values);
       notification.success({ message: "Product updated successfully" });
       fetchProducts();
       setIsModalOpen(false);
@@ -77,7 +77,7 @@ const TableProducts = () => {
 
   const deleteProduct = async (productId) => {
     try {
-      await axios.delete(`http://localhost:4001/productos/${productId}`);
+      await axios.delete(`https://backend-fs-phi.vercel.app/productos/${productId}`);
       notification.success({ message: "Product deleted successfully" });
       fetchProducts();
     } catch (error) {
@@ -139,17 +139,39 @@ const TableProducts = () => {
       notification.error({ message: 'Error', description: 'Usuario no encontrado' });
       return;
     }
-    
-    // Crea un objeto con todos los valores requeridos por el esquema del producto
-    const updatedValues = {
-      nombre: values.nombre,
-      precio: parseFloat(values.precio), // Convertir precio a número si es necesario
-      stock: parseInt(values.stock),     // Convertir stock a número si es necesario
-      usuario: selectedUser._id          // Aquí enviamos el ID del usuario, no el email ni el objeto completo
-    };
-    
+  
+    let updatedValues;
+  
+    if (editingProduct) {
+      // En el caso de editar un producto, se necesita todo el objeto del usuario
+      updatedValues = {
+        nombre: values.nombre,
+        precio: parseFloat(values.precio), // Convertir precio a número si es necesario
+        stock: parseInt(values.stock),     // Convertir stock a número si es necesario
+        usuario: {
+          _id: selectedUser._id,
+          firtname: selectedUser.firtname, // Manteniendo la variable como 'firtname'
+          lastname: selectedUser.lastname,
+          email: selectedUser.email,
+          area: selectedUser.area,         // Asumiendo que el objeto usuario tiene otras propiedades requeridas
+          celular: selectedUser.celular,
+          documento: selectedUser.documento,
+          domicilio: selectedUser.domicilio,
+          rol: selectedUser.rol,
+        }
+      };
+    } else {
+      // En el caso de crear un producto, se necesita solo el email del usuario
+      updatedValues = {
+        nombre: values.nombre,
+        precio: parseFloat(values.precio), // Convertir precio a número si es necesario
+        stock: parseInt(values.stock),     // Convertir stock a número si es necesario
+        email: selectedUser.email          // Solo enviar el email para la creación
+      };
+    }
+  
     console.log("Valores enviados al backend:", updatedValues);
-    
+  
     if (editingProduct) {
       updateProduct(updatedValues); // Llamar a la función para actualizar el producto
     } else {
@@ -157,16 +179,7 @@ const TableProducts = () => {
     }
   };
   
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
+    
 
   return (
     <>
